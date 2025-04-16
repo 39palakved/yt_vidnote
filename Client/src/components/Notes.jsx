@@ -12,8 +12,9 @@ function Notes({id}) {
   const [userInput, setUserInput] = useState("");  
   const handleChange = (e)=>{
     
-    setUserInput(e.target.value);
-    setDesc(userInput)
+    const input = e.target.value;
+    setUserInput(input);
+    setDesc(input);  
   }
   const submitNote =async() => {
     const tagsArray = tags.split(",").map(tag => tag.trim());
