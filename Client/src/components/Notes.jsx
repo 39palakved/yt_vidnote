@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigate,useLocation} from 'react-router-dom'
+import { chatSession } from '../scripts';
 function Notes({id}) {
   console.log("received id", id)
   const navigate = useNavigate();
@@ -35,14 +36,14 @@ function Notes({id}) {
     
   const handleAiClick =async()=>{
     
-    const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
+   
     setLoading(true);
       const response = await fetch(
         `https://youtube-summarizer2.p.rapidapi.com/transcript?id=${id}`,
         {
           method: "GET",
           headers: {
-            "x-rapidapi-key":"95212c340amsh19a957a484f408ep1159a4jsn802368683e2f",
+            "x-rapidapi-key": process.env.React_App_YOUTUBE_KEY,
             "x-rapidapi-host":"youtube-summarizer2.p.rapidapi.com",
           },
         }
@@ -50,31 +51,43 @@ function Notes({id}) {
      
   
       const data = await response.json();
-      const trimmedTranscript = data.transcript.split(" ").slice(30, 150).join(" ") + ".";
+      const trimmedTranscript = data.transcript;
 
        setTrancscript(trimmedTranscript);
-       setUserInput(data?.transcript || "");
+       
       
-      setDesc(transcript);
-      setLoading(false);
-      const geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [{ text: `Summarize this transcript:\n${transcript}`}],
-              },
-            ],
-          }),
-        }
-      );
-  
-      const geminiData = await geminiResponse.json();
+      
      
+      setLoading(false);
+      const geminiResponse = async () => {
+        try {
+          const prompt = `You are a helpful assistant.
+
+I will give you a YouTube video transcript. Your task is to generate student-style notes based on that transcript.
+
+The output should have:
+
+1.Start with a short 2-3 line paragraph that explains the topic being discussed in a natural tone. Do NOT mention the video or any time-related words 
+2. Then, convert the transcript into concise, point-wise notes — just like a student would write while studying.
+3. Focus on important concepts only. Avoid repetition or unnecessary words.
+
+4. Include small code snippets (if any) and break complex ideas into simple short points:\n\n${trimmedTranscript}`;
+      
+          const result = await chatSession.sendMessage(prompt);
+          const response = await result.response.text(); 
+      
+         // console.log("Generated Summary:", response);
+      
+          return response; 
+        } catch (error) {
+          console.error("Error generating summary:", error);
+          return null;
+        }
+      };
+      
+      const summary = await geminiResponse(); 
+      setUserInput(summary);
+      setDesc(summary)
       
   
      
