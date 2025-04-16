@@ -33,7 +33,7 @@ const Collections = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/fetchallnotes", {
+        const response = await fetch("https://yt-vidnote.onrender.com/api/auth/fetchallnotes", {
           method: "GET",
           headers: {
             "auth-token": localStorage.getItem("token"),
@@ -58,7 +58,7 @@ const Collections = () => {
   };
   const toggleFavorite = async (noteId) => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/favorite', {
+      const response = await fetch('https://yt-vidnote.onrender.com/api/auth/favorite', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const Collections = () => {
       }
   
       // ✅ Fetch updated favorites list from backend after toggling
-      const updatedResponse = await fetch("http://localhost:5000/api/auth/favorite-notes", {
+      const updatedResponse = await fetch("https://yt-vidnote.onrender.com/api/auth/favorite-notes", {
         method: "GET",
         headers: {
           "auth-token": localStorage.getItem("token"),
