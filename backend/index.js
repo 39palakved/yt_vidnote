@@ -5,7 +5,7 @@ const cors = require("cors");
 connectToMongo(); // Pehle MongoDB connect karo
 
 const app = express(); // Phir Express app initialize karo
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
