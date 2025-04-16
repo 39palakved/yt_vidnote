@@ -10,7 +10,7 @@ const Collections = () => {
   useEffect(() => {
     const fetchFavoriteNotes = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/favorite-notes", {
+        const response = await fetch("https://yt-vidnote.onrender.com/api/auth/favorite-notes", {
           method: "GET",
           headers: {
             "auth-token": localStorage.getItem("token"),
