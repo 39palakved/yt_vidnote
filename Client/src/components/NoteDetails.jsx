@@ -25,7 +25,7 @@ useEffect(() => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/auth/getcomments/${noteId}`,
+        `https://yt-vidnote.onrender.com/api/auth/getcomments/${noteId}`,
         {
           method: "GET",
           headers: {
@@ -59,7 +59,7 @@ const handleDeleteComment = async (commentId) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/auth/deletecomment/${commentId}`,
+      `https://yt-vidnote.onrender.com/api/auth/deletecomment/${commentId}`,
       {
         method: "DELETE",
         headers: {
@@ -95,7 +95,7 @@ const handleAddComment = async () => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/auth/addcomment/${noteId}`,
+      `https://yt-vidnote.onrender.com/api/auth/addcomment/${noteId}`,
       {
         method: "POST",
         headers: {
@@ -132,7 +132,7 @@ const handleAddComment = async () => {
   useEffect(() => {
     const fetchNoteDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/fetchnote/${noteId}`, {
+        const response = await fetch(`https://yt-vidnote.onrender.com/api/auth/fetchnote/${noteId}`, {
           method: 'GET',
           headers: {
             "auth-token": localStorage.getItem("token")
@@ -155,7 +155,7 @@ const handleAddComment = async () => {
   }, [noteId]);
   const handleEdit = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/updatenote/${noteId}`, {
+      const response = await fetch(`https://yt-vidnote.onrender.com/api/auth/updatenote/${noteId}`, {
         method: 'PUT',
         headers: {
           "Content-Type": "application/json"
@@ -177,7 +177,7 @@ const handleAddComment = async () => {
   };
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/deletenote/${noteId}`, {
+      const response = await fetch(`https://yt-vidnote.onrender.com/api/auth/deletenote/${noteId}`, {
         method: 'DELETE',
       });
 
