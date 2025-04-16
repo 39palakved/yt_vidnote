@@ -18,7 +18,7 @@ function Notes({id}) {
   }
   const submitNote =async() => {
     const tagsArray = tags.split(",").map(tag => tag.trim());
-    const response = await fetch("http://localhost:5000/api/auth/addnote", {
+    const response = await fetch("https://yt-vidnote.onrender.com/api/auth/addnote", {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
